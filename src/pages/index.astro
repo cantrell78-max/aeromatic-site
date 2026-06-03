@@ -1,0 +1,94 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("blog"))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+---
+
+<BaseLayout title="Home">
+  <section class="hero">
+    <div class="container hero__inner">
+      <p class="eyebrow mono">Drone services · Aerial photography</p>
+      <h1>Clarity from above.</h1>
+      <p class="lead">
+        Aeromatic delivers cinematic aerial imagery for real estate, events, and mapping — based in Bend, Oregon, available across the West Coast and beyond.
+      </p>
+      <div class="hero__actions">
+        <a href="/gallery" class="btn">View gallery</a>
+        <a href="/contact" class="btn btn--ghost">Request a shoot</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Capabilities</p>
+      <h2>What we fly</h2>
+      <div class="grid-services">
+        <article class="card">
+          <h3>Real estate</h3>
+          <p>Listings, developments, and property marketing with crisp aerial stills and video.</p>
+        </article>
+        <article class="card">
+          <h3>Mapping &amp; topo</h3>
+          <p>Orthomosaic, site context, and terrain-aware visuals for planning and documentation.</p>
+        </article>
+        <article class="card">
+          <h3>Events &amp; film</h3>
+          <p>Outdoor events, promotional reels, and edited deliverables for your brand.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="container">
+      <p class="eyebrow">Journal</p>
+      <h2>Latest from the blog</h2>
+      {
+        posts.length > 0 ? (
+          <ul class="blog-list">
+            {posts.map((post) => (
+              <li>
+                <a href={`/blog/${post.id}/`}>{post.data.title}</a>
+                <time datetime={post.data.pubDate.toISOString()}>
+                  {post.data.pubDate.toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </time>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="lead">Posts will appear here once published.</p>
+        )
+      }
+      <p style="margin-top: 1.5rem">
+        <a href="/blog">All posts →</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding: 5rem 0 4rem;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, rgba(62, 224, 208, 0.04) 0%, transparent 55%);
+  }
+
+  .hero__inner {
+    max-width: 40rem;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+</style>

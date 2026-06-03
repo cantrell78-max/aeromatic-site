@@ -1,0 +1,114 @@
+---
+const nav = [
+  { href: "/", label: "Home" },
+  { href: "/gallery", label: "Gallery" },
+  { href: "/blog", label: "Blog" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
+];
+
+const path = Astro.url.pathname;
+---
+
+<header class="header">
+  <div class="container header__inner">
+    <a href="/" class="logo">
+      <span class="logo__aero">Aero</span><span class="logo__rest">matic</span>
+      <span class="logo__tag">Drone</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      {
+        nav.map((item) => (
+          <a
+            href={item.href}
+            class:list={["nav__link", { "nav__link--active": path === item.href || (item.href !== "/" && path.startsWith(item.href)) }]}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    height: var(--header-h);
+    background: rgba(8, 9, 12, 0.88);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  .logo {
+    display: flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: -0.03em;
+    color: var(--text);
+  }
+
+  .logo:hover {
+    color: var(--text);
+  }
+
+  .logo__aero {
+    color: var(--accent);
+  }
+
+  .logo__rest {
+    color: var(--text);
+  }
+
+  .logo__tag {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+    margin-left: 0.25rem;
+  }
+
+  .nav {
+    display: flex;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+
+  .nav__link {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+  }
+
+  .nav__link:hover,
+  .nav__link--active {
+    color: var(--accent);
+  }
+
+  @media (max-width: 640px) {
+    .nav {
+      gap: 0.75rem;
+    }
+
+    .nav__link {
+      font-size: 0.75rem;
+    }
+
+    .logo__tag {
+      display: none;
+    }
+  }
+</style>

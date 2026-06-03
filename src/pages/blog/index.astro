@@ -1,0 +1,44 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<BaseLayout title="Blog" description="Field notes, project updates, and aerial video from Aeromatic Drone Services.">
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Journal</p>
+      <h1>Blog</h1>
+      <p class="lead">Articles and embedded videos from our work in the field.</p>
+
+      {
+        posts.length > 0 ? (
+          <ul class="blog-list" style="margin-top: 2rem">
+            {posts.map((post) => (
+              <li>
+                <a href={`/blog/${post.id}/`}>{post.data.title}</a>
+                <p style="margin: 0.35rem 0 0; color: var(--text-muted); font-size: 0.95rem">
+                  {post.data.description}
+                </p>
+                <time datetime={post.data.pubDate.toISOString()}>
+                  {post.data.pubDate.toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </time>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div class="empty-state" style="margin-top: 2rem">
+            <p>No posts yet. Add Markdown files under <code>src/content/blog/</code>.</p>
+          </div>
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>

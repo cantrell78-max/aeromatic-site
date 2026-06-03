@@ -1,0 +1,38 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getGalleryImages } from "../lib/gallery";
+
+const images = getGalleryImages();
+---
+
+<BaseLayout
+  title="Gallery"
+  description="Aerial photography portfolio — real estate, landscapes, and commercial drone imagery by Aeromatic."
+>
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Portfolio</p>
+      <h1>Gallery</h1>
+      <p class="lead">
+        Drop optimized images into <code class="mono">public/gallery/</code> — they appear here automatically on the next deploy. See <code class="mono">ASSETS.md</code> in the repo.
+      </p>
+
+      {
+        images.length > 0 ? (
+          <div class="gallery-grid" style="margin-top: 2rem">
+            {images.map((img) => (
+              <figure class="gallery-item">
+                <img src={img.src} alt={img.alt} loading="lazy" width={800} height={600} />
+              </figure>
+            ))}
+          </div>
+        ) : (
+          <div class="empty-state" style="margin-top: 2rem">
+            <p><strong>No gallery images yet.</strong></p>
+            <p>Add <code>.webp</code> or <code>.jpg</code> files to <code>public/gallery/</code> and push to GitHub.</p>
+          </div>
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>

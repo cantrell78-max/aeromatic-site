@@ -1,0 +1,100 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const headshot = "/images/about/adam.jpg";
+---
+
+<BaseLayout
+  title="About"
+  description="About Aeromatic Drone Services — aviation background, real estate aerial work, and the Airomatic family legacy."
+>
+  <section class="section">
+    <div class="container about">
+      <p class="eyebrow">About</p>
+      <h1>The person behind the lens</h1>
+
+      <div class="about__grid">
+        <div class="about__photo card">
+          <img
+            src={headshot}
+            alt="Portrait of Adam — Aeromatic Drone Services"
+            width={480}
+            height={560}
+            onerror="this.closest('.about__photo')?.classList.add('about__photo--missing')"
+          />
+          <p class="about__photo-hint mono">Add your photo at public/images/about/adam.jpg</p>
+        </div>
+
+        <div class="about__copy prose">
+          <p>
+            <strong>Aeromatic</strong> is my drone services and aerial photography brand — built on a lifelong pull toward flight, precision, and storytelling from above.
+          </p>
+
+          <h2>Aviation &amp; photography</h2>
+          <p>
+            I'm an aeronautics hobbyist who attended Space Camp as a kid and started pilot instruction at fifteen. My grandfather was a private pilot who taught me to fly Cessna aircraft — that same careful, systems-minded approach carries into how I plan and execute every flight today.
+          </p>
+          <p>
+            I've worked with multiple real estate companies across the West Coast, combining a passion for photography and technology with dependable deliverables listing agents and developers can use immediately.
+          </p>
+
+          <h2>The Airomatic legacy</h2>
+          <p>
+            The name <strong>Aeromatic</strong> honors my grandfather's HVAC company, <strong>Airomatic</strong> — air, automation, and craftsmanship, now reimagined for aerial imaging. A separate technology brand (<strong>AIromatic</strong>) may launch in the future for AI and IT consulting; this site stays focused on drone work so clients know exactly what they're hiring.
+          </p>
+
+          <h2>Coverage</h2>
+          <p>
+            Based in <strong>Bend, Oregon</strong>, available throughout Oregon, California, and Washington, with select projects in Hawaii, Colorado, Alaska, and beyond. Services include real estate aerials, topological mapping support, events, videography, and edited media deliverables.
+          </p>
+
+          <p>
+            <a href="/contact" class="btn">Get in touch</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .about__grid {
+    display: grid;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .about__grid {
+      grid-template-columns: minmax(240px, 320px) 1fr;
+      align-items: start;
+    }
+  }
+
+  .about__photo {
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .about__photo img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
+
+  .about__photo--missing img {
+    display: none;
+  }
+
+  .about__photo-hint {
+    padding: 1rem;
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  .about__photo:not(.about__photo--missing) .about__photo-hint {
+    display: none;
+  }
+</style>

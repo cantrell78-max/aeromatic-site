@@ -1,13 +1,19 @@
 # Deploy — GitHub + Cloudflare Pages
 
-## Cloudflare Pages settings
+## Cloudflare build settings (Workers Builds)
+
+This project uses Cloudflare’s **Workers Builds** flow (Git → build → `wrangler deploy`), not the older “Pages only” screen that shows **Build output directory: `dist`**.
 
 | Setting | Value |
 |---------|--------|
-| Framework preset | **Astro** |
+| Git repository | `cantrell78-max/aeromatic-site` |
+| Production branch | `main` |
+| Root directory | `/` |
 | Build command | `npm run build` |
-| Build output directory | `dist` |
-| Node version | **20** or **22** (set in Pages → Settings → Environment) |
+| Deploy command | `npx wrangler deploy` (default) |
+| Static files | `./dist` via `wrangler.jsonc` in the repo |
+
+Node version **20** or **22** in the project’s environment settings.
 
 ## 1. Create the GitHub repository
 
@@ -76,11 +82,11 @@ Cloudflare rebuilds on every push to `main` **only if** the Pages project is con
 In [Workers & Pages](https://dash.cloudflare.com) → your **aeromatic-site** project:
 
 1. **Deployments** tab — open a recent deploy. Under **Source**, it should say **Git** and show the commit hash. If it says **Direct Upload** or **Wrangler**, pushes to GitHub will **not** trigger builds; you must redeploy from the dashboard or reconnect Git.
-2. **Settings → Builds & deployments**
+2. **Settings → Builds**
    - **Production branch:** `main`
    - **Build command:** `npm run build`
-   - **Build output directory:** `dist`
-   - **Build watch paths:** leave empty (build on every push) unless you intentionally limited paths
+   - **Deploy command:** `npx wrangler deploy` (needs `wrangler.jsonc` with `"assets": { "directory": "./dist" }`)
+   - There is no separate “output directory” field in Workers Builds — Wrangler uploads `dist` after the build
 3. **Settings → Builds & deployments → Build configuration → Connect to Git** — re-authorize GitHub if needed and confirm repo `cantrell78-max/aeromatic-site`.
 4. After `git push`, a new row should appear in **Deployments** within ~30 seconds (queued → building → success). If nothing appears, the GitHub ↔ Cloudflare link is broken; use **Retry deployment** on the last good build or **Create deployment** from the latest `main` commit while you fix the integration.
 

@@ -54,11 +54,53 @@ No JSON edit needed — the site scans `public/gallery/` at build time.
 
 - Path: `public/images/about/adam.jpg`
 - Size: ~800–1200px wide is enough
+- Staging: copy original to `~/aeromatic-assets/about/` then:
+
+  ```bash
+  cp ~/aeromatic-assets/about/your-photo.jpg public/images/about/adam.jpg
+  ```
+
+### Homepage hero
+
+```bash
+npm run hero:optimize
+# or pick a source file:
+npm run hero:optimize -- ~/aeromatic-assets/picks/my-favorite-shot.jpg
+```
+
+Writes `public/images/hero/hero.webp`.
+
+### Logo
+
+- Mark in header: `public/images/brand/logo-mark.svg` (replace with your own SVG/PNG if you have one)
+- Favicon: `public/favicon.svg`
+
+### Contact & maps (env)
+
+Copy `env.example` → `.env` and set:
+
+- `PUBLIC_FORMSPREE_ID` — form submissions
+- `PUBLIC_MAPS_EMBED_SRC` — Google Business Profile embed URL
+- `PUBLIC_CONTACT_EMAIL` — shown if Formspree isn't set yet
+- `PUBLIC_YOUTUBE_URL` — optional link on contact page
 
 ### Blog images
 
 - Put files in `public/images/blog/`
 - Reference in Markdown: `![Alt text](/images/blog/my-photo.webp)`
+
+### Blog posts
+
+Add `src/content/blog/my-post.md`:
+
+```yaml
+---
+title: "Post title"
+description: "Short summary for SEO"
+pubDate: 2026-06-04
+youtubeId: "optional_video_id"
+---
+```
 
 ### YouTube
 

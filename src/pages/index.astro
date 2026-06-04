@@ -1,19 +1,32 @@
 ---
+import fs from "node:fs";
+import path from "node:path";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
+import { site } from "../config/site";
 
 const posts = (await getCollection("blog"))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
+
+const heroImage = "/images/hero/hero.webp";
+const heroOnDisk = fs.existsSync(path.join(process.cwd(), "public", "images", "hero", "hero.webp"));
 ---
 
 <BaseLayout title="Home">
-  <section class="hero">
+  <section class="hero" class:list={[{ "hero--has-image": heroOnDisk }]}>
+    {
+      heroOnDisk && (
+        <div class="hero__media" aria-hidden="true">
+          <img src={heroImage} alt="" width={2400} height={1350} fetchpriority="high" decoding="async" />
+        </div>
+      )
+    }
     <div class="container hero__inner">
       <p class="eyebrow mono">Drone services · Aerial photography</p>
       <h1>Clarity from above.</h1>
       <p class="lead">
-        Aeromatic delivers cinematic aerial imagery for real estate, events, and mapping — based in Bend, Oregon, available across the West Coast and beyond.
+        {site.name} delivers cinematic aerial imagery for real estate, events, and mapping — based in {site.location}, available across the West Coast and beyond.
       </p>
       <div class="hero__actions">
         <a href="/gallery/" class="btn">View gallery</a>
@@ -76,13 +89,55 @@ const posts = (await getCollection("blog"))
 
 <style>
   .hero {
+    position: relative;
     padding: 5rem 0 4rem;
     border-bottom: 1px solid var(--border);
-    background: linear-gradient(180deg, rgba(62, 224, 208, 0.04) 0%, transparent 55%);
+    overflow: hidden;
+  }
+
+  .hero--has-image {
+    padding: 6rem 0 5rem;
+    min-height: min(72vh, 42rem);
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .hero__media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .hero__media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      105deg,
+      rgba(8, 9, 12, 0.92) 0%,
+      rgba(8, 9, 12, 0.75) 45%,
+      rgba(8, 9, 12, 0.35) 100%
+    );
+  }
+
+  .hero__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   .hero__inner {
+    position: relative;
+    z-index: 1;
     max-width: 40rem;
+  }
+
+  .hero--has-image .hero__inner {
+    text-shadow: 0 1px 24px rgba(0, 0, 0, 0.5);
+  }
+
+  .hero:not(.hero--has-image) {
+    background: linear-gradient(180deg, rgba(62, 224, 208, 0.04) 0%, transparent 55%);
   }
 
   .hero__actions {

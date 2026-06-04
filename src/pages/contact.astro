@@ -1,9 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-
-/** Replace with your Google Maps embed URL from Share → Embed a map */
-const mapsEmbedSrc =
-  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d27244.0!2d-121.3153!3d44.0582!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54b6c7c9c8b8b8b9%3A0x1!2sBend%2C%20OR!5e0!3m2!1sen!2sus!4v1";
+import { site, formspreeAction } from "../config/site";
 ---
 
 <BaseLayout title="Contact" description="Contact Aeromatic Drone Services for aerial photography and drone work in Bend, Oregon and the West Coast.">
@@ -16,28 +13,43 @@ const mapsEmbedSrc =
       </p>
 
       <div class="contact-grid">
-        <form
-          class="card contact-form"
-          action="https://formspree.io/f/YOUR_FORM_ID"
-          method="POST"
-        >
-          <p class="mono" style="font-size: 0.8rem; color: var(--warm); margin-top: 0">
-            Replace form <code>action</code> with your Formspree ID (or Netlify Forms) in <code>contact.astro</code>.
-          </p>
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" required autocomplete="name" />
-          </div>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required autocomplete="email" />
-          </div>
-          <div class="form-group">
-            <label for="message">Project details</label>
-            <textarea id="message" name="message" rows="5" required placeholder="Location, date, type of shoot…"></textarea>
-          </div>
-          <button type="submit" class="btn">Send message</button>
-        </form>
+        {
+          formspreeAction ? (
+            <form class="card contact-form" action={formspreeAction} method="POST">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required autocomplete="name" />
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required autocomplete="email" />
+              </div>
+              <div class="form-group">
+                <label for="message">Project details</label>
+                <textarea id="message" name="message" rows="5" required placeholder="Location, date, type of shoot…"></textarea>
+              </div>
+              <button type="submit" class="btn">Send message</button>
+            </form>
+          ) : (
+            <div class="card contact-form contact-form--pending">
+              <h3 style="margin-top: 0">Email us directly</h3>
+              <p style="margin: 0; color: var(--text-muted)">
+                The contact form will go live once Formspree is connected. For now, reach out by email:
+              </p>
+              {
+                site.contactEmail ? (
+                  <p style="margin: 1rem 0 0">
+                    <a href={`mailto:${site.contactEmail}`} class="btn">{site.contactEmail}</a>
+                  </p>
+                ) : (
+                  <p class="mono" style="font-size: 0.8rem; margin: 1rem 0 0; color: var(--text-muted)">
+                    Add <code>PUBLIC_CONTACT_EMAIL</code> or <code>PUBLIC_FORMSPREE_ID</code> in a <code>.env</code> file (see <code>env.example</code>).
+                  </p>
+                )
+              }
+            </div>
+          )
+        }
 
         <div>
           <div class="card" style="margin-bottom: 1.25rem">
@@ -50,17 +62,23 @@ const mapsEmbedSrc =
                 Find us on Google Maps →
               </a>
             </p>
+            {
+              site.youtubeUrl && (
+                <p style="margin: 1rem 0 0">
+                  <a href={site.youtubeUrl} target="_blank" rel="noopener noreferrer">
+                    YouTube channel →
+                  </a>
+                </p>
+              )
+            }
           </div>
           <div class="map-wrap">
             <iframe
-              src={mapsEmbedSrc}
+              src={site.mapsEmbedSrc}
               title="Map — Bend, Oregon service area"
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
-          <p class="mono" style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.75rem">
-            Swap the iframe <code>src</code> in contact.astro with your Business Profile embed code.
-          </p>
         </div>
       </div>
     </div>
@@ -84,5 +102,9 @@ const mapsEmbedSrc =
     cursor: pointer;
     border: none;
     font: inherit;
+  }
+
+  .contact-form--pending {
+    border-color: var(--border);
   }
 </style>

@@ -3,6 +3,7 @@ import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import SchematicBg from "../components/SchematicBg.astro";
+import { site } from "../config/site";
 
 interface Props {
   title: string;
@@ -11,6 +12,7 @@ interface Props {
 
 const { title, description = "Professional drone services and aerial photography. Based in Bend, Oregon — serving the West Coast and beyond." } = Astro.props;
 const fullTitle = title === "Home" ? "Aeromatic | Drone Services & Aerial Photography" : `${title} | Aeromatic Drone`;
+const canonical = new URL(Astro.url.pathname, site.url).href;
 ---
 
 <!doctype html>
@@ -21,6 +23,12 @@ const fullTitle = title === "Home" ? "Aeromatic | Drone Services & Aerial Photog
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="theme-color" content="#08090c" />
     <meta name="generator" content={Astro.generator} />
     <title>{fullTitle}</title>
   </head>

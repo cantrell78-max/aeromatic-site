@@ -10,7 +10,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "gallery:optimize": "node scripts/optimize-gallery.mjs"
+    "gallery:optimize": "node scripts/optimize-gallery.mjs",
+    "hero:optimize": "node scripts/optimize-hero.mjs"
   },
   "dependencies": {
     "astro": "^6.4.4",

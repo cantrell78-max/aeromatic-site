@@ -13,6 +13,7 @@ interface Props {
 const { title, description = "Professional drone services and aerial photography. Based in Bend, Oregon — serving the West Coast and beyond." } = Astro.props;
 const fullTitle = title === "Home" ? "Aeromatic | Drone Services & Aerial Photography" : `${title} | Aeromatic Drone`;
 const canonical = new URL(Astro.url.pathname, site.url).href;
+const ogImage = new URL("/images/hero/hero.webp", site.url).href;
 ---
 
 <!doctype html>
@@ -28,6 +29,12 @@ const canonical = new URL(Astro.url.pathname, site.url).href;
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content="Aerial photography by Aeromatic Drone Services" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
     <meta name="theme-color" content="#08090c" />
     <meta name="generator" content={Astro.generator} />
     <title>{fullTitle}</title>

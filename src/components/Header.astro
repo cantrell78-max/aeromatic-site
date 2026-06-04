@@ -17,7 +17,7 @@ const isActive = (href: string) =>
     <a href="/" class="logo">
       <img src="/images/brand/logo-mark.svg" alt="" width="32" height="32" class="logo__mark" />
       <span class="logo__text">
-        <span class="logo__aero">Aero</span><span class="logo__rest">matic</span>
+        <span class="logo__aero"><span class="logo__a">A</span>ero</span><span class="logo__rest">matic</span>
         <span class="logo__tag">Drone</span>
       </span>
     </a>
@@ -80,6 +80,24 @@ const isActive = (href: string) =>
 
   .logo__aero {
     color: var(--accent);
+  }
+
+  .logo__a {
+    position: relative;
+    display: inline-block;
+  }
+
+  .logo__a::before {
+    content: "";
+    position: absolute;
+    top: 0.05em;
+    left: -0.12em;
+    width: 0.55em;
+    height: 0.22em;
+    border-top: 2px solid var(--accent);
+    border-left: 2px solid var(--accent);
+    transform: skewX(-28deg);
+    opacity: 0.85;
   }
 
   .logo__rest {

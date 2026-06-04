@@ -23,6 +23,9 @@ pnpm-debug.log*
 # local originals (if you keep them in-repo)
 assets-source/
 
+# brand exploration mocks (reference only; live mark is logo-mark.svg)
+public/images/brand/concepts/
+
 # env
 .env.*
 

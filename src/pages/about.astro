@@ -20,9 +20,9 @@ const headshot = "/images/about/adam.jpg";
             alt="Portrait of Adam — Aeromatic Drone Services"
             width={960}
             height={1200}
-            onerror="this.closest('.about__photo')?.classList.add('about__photo--missing')"
+            loading="lazy"
+            decoding="async"
           />
-          <p class="about__photo-hint mono">Add your photo at public/images/about/adam.jpg</p>
         </div>
 
         <div class="about__copy prose">
@@ -82,19 +82,4 @@ const headshot = "/images/about/adam.jpg";
     object-fit: cover;
   }
 
-  .about__photo--missing img {
-    display: none;
-  }
-
-  .about__photo-hint {
-    padding: 1rem;
-    margin: 0;
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    text-align: center;
-  }
-
-  .about__photo:not(.about__photo--missing) .about__photo-hint {
-    display: none;
-  }
 </style>

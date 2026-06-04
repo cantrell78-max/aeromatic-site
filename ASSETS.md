@@ -72,8 +72,9 @@ Writes `public/images/hero/hero.webp`.
 
 ### Logo
 
-- Mark in header: `public/images/brand/logo-mark.svg` (replace with your own SVG/PNG if you have one)
+- Mark in header: `public/images/brand/logo-mark.svg` — schematic reticle + drone (matches brand concept 01)
 - Favicon: `public/favicon.svg`
+- **Reference only** (not deployed): `public/images/brand/concepts/*.jpg` — AI exploration mocks; gitignored. Edit the SVG if you want to tweak the live mark.
 
 ### Contact & maps (env)
 

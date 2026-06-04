@@ -72,7 +72,7 @@ Writes `public/images/hero/hero.webp`.
 
 ### Logo
 
-- Header wordmark: `public/images/brand/wordmark.webp` (from concept `02-wordmark.jpg`)
+- Header wordmark: `public/images/brand/wordmark.webp` — run `npm run wordmark:optimize` after editing `02-wordmark.jpg`
 - Favicon: `public/favicon.svg` (small schematic mark; optional to replace later)
 - **Reference only** (gitignored): `public/images/brand/concepts/*.jpg` — original AI mocks including `02-wordmark.jpg`
 

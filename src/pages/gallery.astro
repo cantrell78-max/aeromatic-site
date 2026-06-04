@@ -1,8 +1,9 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getGalleryImages } from "../lib/gallery";
+import "photoswipe/style.css";
 
-const images = getGalleryImages();
+const images = await getGalleryImages();
 ---
 
 <BaseLayout
@@ -14,25 +15,103 @@ const images = getGalleryImages();
       <p class="eyebrow">Portfolio</p>
       <h1>Gallery</h1>
       <p class="lead">
-        Drop optimized images into <code class="mono">public/gallery/</code> — they appear here automatically on the next deploy. See <code class="mono">ASSETS.md</code> in the repo.
+        Aerial stills from across the West Coast and beyond. Click any image to view it full size.
       </p>
 
       {
         images.length > 0 ? (
-          <div class="gallery-grid" style="margin-top: 2rem">
+          <div id="gallery" class="gallery-masonry">
             {images.map((img) => (
-              <figure class="gallery-item">
-                <img src={img.src} alt={img.alt} loading="lazy" width={800} height={600} />
-              </figure>
+              <a
+                href={img.src}
+                class="gallery-masonry__item"
+                data-pswp-width={img.width}
+                data-pswp-height={img.height}
+                aria-label={`View full size: ${img.title}`}
+              >
+                <img src={img.src} alt={img.alt} loading="lazy" decoding="async" width={img.width} height={img.height} />
+              </a>
             ))}
           </div>
         ) : (
-          <div class="empty-state" style="margin-top: 2rem">
+          <div class="empty-state gallery-masonry__empty">
             <p><strong>No gallery images yet.</strong></p>
-            <p>Add <code>.webp</code> or <code>.jpg</code> files to <code>public/gallery/</code> and push to GitHub.</p>
+            <p>Add images to <code>public/gallery/</code> and deploy.</p>
           </div>
         )
       }
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .gallery-masonry {
+    column-count: 3;
+    column-gap: 0.75rem;
+    margin-top: 2rem;
+  }
+
+  .gallery-masonry__item {
+    display: block;
+    break-inside: avoid;
+    margin-bottom: 0.75rem;
+    border: 1px solid var(--border);
+    background: var(--bg-elevated);
+    overflow: hidden;
+    cursor: zoom-in;
+    line-height: 0;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .gallery-masonry__item:hover {
+    border-color: var(--accent-dim);
+    box-shadow: 0 0 20px var(--glow);
+  }
+
+  .gallery-masonry__item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    vertical-align: middle;
+  }
+
+  .gallery-masonry__empty {
+    margin-top: 2rem;
+  }
+
+  @media (max-width: 1024px) {
+    .gallery-masonry {
+      column-count: 2;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .gallery-masonry {
+      column-count: 1;
+    }
+  }
+
+  /* PhotoSwipe — match site dark theme */
+  :global(.pswp) {
+    --pswp-bg: #08090c;
+    --pswp-icon-color: #e8ecf4;
+    --pswp-icon-color-secondary: #8b93a8;
+    --pswp-icon-stroke-color: #252b38;
+    --pswp-icon-stroke-width: 1px;
+    --pswp-error-text-color: var(--pswp-icon-color);
+  }
+</style>
+
+<script>
+  import PhotoSwipeLightbox from "photoswipe/lightbox";
+
+  const lightbox = new PhotoSwipeLightbox({
+    gallery: "#gallery",
+    children: "a",
+    pswpModule: () => import("photoswipe"),
+    wheelToZoom: true,
+    bgOpacity: 0.92,
+  });
+
+  lightbox.init();
+</script>

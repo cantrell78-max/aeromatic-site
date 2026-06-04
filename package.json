@@ -13,7 +13,8 @@
     "gallery:optimize": "node scripts/optimize-gallery.mjs"
   },
   "dependencies": {
-    "astro": "^6.4.4"
+    "astro": "^6.4.4",
+    "photoswipe": "^5.4.4"
   },
   "devDependencies": {
     "sharp": "^0.34.5"

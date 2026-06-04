@@ -4,8 +4,8 @@ export const site = {
   tagline: "Drone services & aerial photography",
   url: "https://aeromaticdrone.com",
   location: "Bend, Oregon",
-  /** Formspree form id (letters only, from formspree.io/f/xxxx) */
-  formspreeId: import.meta.env.PUBLIC_FORMSPREE_ID ?? "",
+  /** Formspree form id — public in form action; override via PUBLIC_FORMSPREE_ID */
+  formspreeId: import.meta.env.PUBLIC_FORMSPREE_ID ?? "mrevblgq",
   /** Google Maps iframe src from Business Profile → Share → Embed */
   mapsEmbedSrc:
     import.meta.env.PUBLIC_MAPS_EMBED_SRC ??

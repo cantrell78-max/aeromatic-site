@@ -104,7 +104,7 @@ Open http://localhost:4321
 
 ## Before going live
 
-- [ ] Replace Formspree ID in `src/pages/contact.astro`
+- [x] Formspree — `mrevblgq` in `src/config/site.ts` (https://formspree.io/f/mrevblgq)
 - [ ] Replace Google Maps embed `src` in `contact.astro` (Share → Embed from your Business Profile)
 - [ ] Add `public/images/about/adam.jpg`
 - [ ] Add gallery images to `public/gallery/`

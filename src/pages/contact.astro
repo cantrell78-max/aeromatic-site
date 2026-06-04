@@ -16,6 +16,8 @@ import { site, formspreeAction } from "../config/site";
         {
           formspreeAction ? (
             <form class="card contact-form" action={formspreeAction} method="POST">
+              <input type="text" name="_gotcha" class="contact-form__honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
+              <input type="hidden" name="_subject" value="Aeromatic — new shoot inquiry" />
               <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" id="name" name="name" required autocomplete="name" />
@@ -106,5 +108,14 @@ import { site, formspreeAction } from "../config/site";
 
   .contact-form--pending {
     border-color: var(--border);
+  }
+
+  .contact-form__honeypot {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
   }
 </style>

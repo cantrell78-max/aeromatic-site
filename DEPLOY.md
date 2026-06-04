@@ -108,7 +108,7 @@ Open http://localhost:4321
 - [x] About headshot — `public/images/about/adam.jpg`
 - [x] Homepage hero — `public/images/hero/hero.webp`
 - [x] Gallery — `public/gallery/` (284 images)
-- [x] Logo mark — `public/images/brand/logo-mark.svg` (schematic reticle + drone)
+- [x] Header wordmark — `public/images/brand/wordmark.webp` (from `02-wordmark.jpg` concept)
 - [ ] Replace Google Maps embed `src` — set `PUBLIC_MAPS_EMBED_SRC` in `.env` (Share → Embed from your Business Profile)
 - [ ] Optional: `PUBLIC_YOUTUBE_URL` for contact page channel link
 - [ ] Set website URL on Google Business Profile to `https://aeromaticdrone.com`

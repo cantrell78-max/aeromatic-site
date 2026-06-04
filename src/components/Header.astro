@@ -10,16 +10,22 @@ const nav = [
 const path = Astro.url.pathname;
 const isActive = (href: string) =>
   href === "/" ? path === "/" : path.startsWith(href);
+
+const wordmarkSrc = "/images/brand/wordmark.webp";
 ---
 
 <header class="header">
   <div class="container header__inner">
     <a href="/" class="logo">
-      <img src="/images/brand/logo-mark.svg" alt="" width="32" height="32" class="logo__mark" />
-      <span class="logo__text">
-        <span class="logo__aero"><span class="logo__a">A</span>ero</span><span class="logo__rest">matic</span>
-        <span class="logo__tag">Drone</span>
-      </span>
+      <img
+        src={wordmarkSrc}
+        alt="Aeromatic Drone"
+        width={1280}
+        height={896}
+        class="logo__wordmark"
+        fetchpriority="high"
+        decoding="async"
+      />
     </a>
     <nav class="nav" aria-label="Main">
       {
@@ -52,70 +58,35 @@ const isActive = (href: string) =>
     align-items: center;
     justify-content: space-between;
     height: 100%;
+    gap: 1rem;
   }
 
   .logo {
     display: flex;
     align-items: center;
-    gap: 0.6rem;
-    font-weight: 700;
-    font-size: 1.25rem;
-    letter-spacing: -0.03em;
+    flex-shrink: 1;
+    min-width: 0;
     color: var(--text);
-  }
-
-  .logo__mark {
-    flex-shrink: 0;
-  }
-
-  .logo__text {
-    display: flex;
-    align-items: baseline;
-    gap: 0.35rem;
   }
 
   .logo:hover {
     color: var(--text);
+    opacity: 0.92;
   }
 
-  .logo__aero {
-    color: var(--accent);
-  }
-
-  .logo__a {
-    position: relative;
-    display: inline-block;
-  }
-
-  .logo__a::before {
-    content: "";
-    position: absolute;
-    top: 0.05em;
-    left: -0.12em;
-    width: 0.55em;
-    height: 0.22em;
-    border-top: 2px solid var(--accent);
-    border-left: 2px solid var(--accent);
-    transform: skewX(-28deg);
-    opacity: 0.85;
-  }
-
-  .logo__rest {
-    color: var(--text);
-  }
-
-  .logo__tag {
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--text-muted);
-    margin-left: 0.25rem;
+  .logo__wordmark {
+    display: block;
+    width: auto;
+    height: 2.35rem;
+    max-width: min(100%, 14rem);
+    object-fit: contain;
+    object-position: left center;
   }
 
   .nav {
     display: flex;
     gap: 1.25rem;
+    flex-shrink: 0;
     flex-wrap: wrap;
   }
 
@@ -140,8 +111,9 @@ const isActive = (href: string) =>
       font-size: 0.75rem;
     }
 
-    .logo__tag {
-      display: none;
+    .logo__wordmark {
+      height: 1.85rem;
+      max-width: 10.5rem;
     }
   }
 </style>

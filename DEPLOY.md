@@ -32,9 +32,9 @@ On GitHub (browser):
 Connect and push (replace `YOUR_USER`):
 
 ```bash
-git remote add origin git@github.com:YOUR_USER/aeromatic-site.git
+git remote add origin git@github.com:cantrell78-max/aeromatic-site.git
 # HTTPS alternative:
-# git remote add origin https://github.com/YOUR_USER/aeromatic-site.git
+# git remote add origin https://github.com/cantrell78-max/aeromatic-site.git
 
 git push -u origin main
 ```
@@ -69,7 +69,22 @@ git commit -m "Add gallery photos"
 git push
 ```
 
-Cloudflare rebuilds on every push to `main`.
+Cloudflare rebuilds on every push to `main` **only if** the Pages project is connected to Git (not “Direct Upload”).
+
+### Auto-deploy not running?
+
+In [Workers & Pages](https://dash.cloudflare.com) → your **aeromatic-site** project:
+
+1. **Deployments** tab — open a recent deploy. Under **Source**, it should say **Git** and show the commit hash. If it says **Direct Upload** or **Wrangler**, pushes to GitHub will **not** trigger builds; you must redeploy from the dashboard or reconnect Git.
+2. **Settings → Builds & deployments**
+   - **Production branch:** `main`
+   - **Build command:** `npm run build`
+   - **Build output directory:** `dist`
+   - **Build watch paths:** leave empty (build on every push) unless you intentionally limited paths
+3. **Settings → Builds & deployments → Build configuration → Connect to Git** — re-authorize GitHub if needed and confirm repo `cantrell78-max/aeromatic-site`.
+4. After `git push`, a new row should appear in **Deployments** within ~30 seconds (queued → building → success). If nothing appears, the GitHub ↔ Cloudflare link is broken; use **Retry deployment** on the last good build or **Create deployment** from the latest `main` commit while you fix the integration.
+
+Manual deploy is fine as a fallback: **Deployments → Create deployment → Production branch `main`**.
 
 ## 5. Local preview
 

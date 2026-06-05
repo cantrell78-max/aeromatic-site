@@ -72,9 +72,21 @@ If `aeromaticdrone.com` works but `www.aeromaticdrone.com` fails in the browser 
 1. [Cloudflare Dashboard](https://dash.cloudflare.com) → **Websites** → **aeromaticdrone.com** → **DNS** → **Records**
 2. Confirm there is a record for **`www`** (usually **CNAME** → `<your-project>.pages.dev`, **Proxied** orange cloud).
 3. If missing: **Workers & Pages** → **aeromatic-site** → **Custom domains** → **Set up** → add `www.aeromaticdrone.com` (Cloudflare can create the DNS row for you).
-4. Wait a few minutes, then test: `https://www.aeromaticdrone.com/` should load (this repo’s `public/_redirects` sends www → apex).
+4. Wait a few minutes, then test: `https://www.aeromaticdrone.com/` should load.
 
 Check from terminal: `curl -s "https://dns.google/resolve?name=www.aeromaticdrone.com&type=A"` — should return `"Status":0` with Answers, not `"Status":3`.
+
+### Redirect www → apex (optional, do in Cloudflare — not `_redirects`)
+
+Pages `_redirects` only allows **relative** paths; absolute URLs like `https://aeromaticdrone.com/...` fail the deploy with error `100324`.
+
+To force one canonical host:
+
+1. **Websites** → **aeromaticdrone.com** → **Rules** → **Redirect Rules** → **Create rule**
+2. **When:** Hostname equals `www.aeromaticdrone.com`
+3. **Then:** Dynamic redirect → `https://aeromaticdrone.com/${uri.path}` (301)
+
+Or leave both hosts serving the same site (both custom domains on the Pages project) — no redirect required.
 
 ## 4. Day-to-day updates
 

@@ -1,2 +1,0 @@
-# Cloudflare Pages — after www is added as a custom domain, send all traffic to apex
-https://www.aeromaticdrone.com/* https://aeromaticdrone.com/:splat 301

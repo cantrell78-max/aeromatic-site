@@ -65,6 +65,17 @@ git push -u origin main
 3. Cloudflare adds DNS records automatically if the domain is on the same account
 4. HTTPS certificate provisions in a few minutes
 
+### `www` does not resolve (DNS NXDOMAIN)
+
+If `aeromaticdrone.com` works but `www.aeromaticdrone.com` fails in the browser (“can’t find”, DNS error):
+
+1. [Cloudflare Dashboard](https://dash.cloudflare.com) → **Websites** → **aeromaticdrone.com** → **DNS** → **Records**
+2. Confirm there is a record for **`www`** (usually **CNAME** → `<your-project>.pages.dev`, **Proxied** orange cloud).
+3. If missing: **Workers & Pages** → **aeromatic-site** → **Custom domains** → **Set up** → add `www.aeromaticdrone.com` (Cloudflare can create the DNS row for you).
+4. Wait a few minutes, then test: `https://www.aeromaticdrone.com/` should load (this repo’s `public/_redirects` sends www → apex).
+
+Check from terminal: `curl -s "https://dns.google/resolve?name=www.aeromaticdrone.com&type=A"` — should return `"Status":0` with Answers, not `"Status":3`.
+
 ## 4. Day-to-day updates
 
 ```bash

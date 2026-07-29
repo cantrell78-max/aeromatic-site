@@ -12,7 +12,8 @@
 ```text
 ~/aeromatic-assets/
   from-google-photos/   ← paste Google Photos downloads here first
-  picks/                ← copy your best shots here, then run optimizer
+  picks/                ← staging only: new keepers → run optimizer
+  picks-archive/        ← processed originals (auto-moved after optimize)
   hero/                 ← homepage banner candidates
   about/                ← headshot originals
   blog/                 ← blog image originals
@@ -42,7 +43,9 @@ public/
    npm run gallery:optimize
    ```
 
-   Writes `.webp` files to `public/gallery/` (max edge 2400px).
+   Writes `.webp` files to `public/gallery/` (max edge 2400px), then
+   **moves** each original from `picks/` → `picks-archive/` so the next
+   run only processes new drops.
 
 4. Preview `/gallery/` → `git add public/gallery` → `commit` → `push`
 

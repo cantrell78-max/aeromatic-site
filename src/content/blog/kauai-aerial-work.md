@@ -29,8 +29,6 @@ The video at the top of this post is a new upload from these flights. Below are 
 
 ![Aerial still — Kauai detail](/gallery/vlcsnap-2026-07-14-16h21m54s316-2.webp)
 
-![Aerial still — Kauai alternate frame](/gallery/vlcsnap-2026-07-14-16h21m54s316-2-1.webp)
-
 ![Aerial still — morning light](/gallery/vlcsnap-2026-07-29-08h37m50s236-2.webp)
 
 ![Aerial still — early flight](/gallery/vlcsnap-2026-07-29-08h44m25s319-2.webp)

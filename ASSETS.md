@@ -116,9 +116,11 @@ youtubeId: "optional_video_id"
 ```text
 ~/aeromatic-assets/
   from-google-photos/
-  picks/
+  picks/              ← drop new shots here
+  picks-archive/      ← auto-filled after gallery:optimize
   hero/
   about/
 ```
 
 Keep masters there; copy optimized exports into `public/` above.
+`gallery:optimize` moves finished originals out of `picks/` automatically.
